@@ -8,7 +8,7 @@ const AvailableFilter = ({ setAvailable }) => {
   return (
     <Space wrap>
       <Select
-        defaultValue='Gender'
+        defaultValue='Availability'
         style={{
           width: 120,
         }}
