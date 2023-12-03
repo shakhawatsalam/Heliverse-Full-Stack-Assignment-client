@@ -9,6 +9,7 @@ const userApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["singleUser"],
     }),
     // * Get All User
     getAllUser: builder.query({
@@ -17,6 +18,7 @@ const userApi = api.injectEndpoints({
         method: "GET",
         params: arg,
       }),
+      providesTags: ["user"],
     }),
 
     // * get single user
@@ -25,6 +27,15 @@ const userApi = api.injectEndpoints({
         url: `/users/${id}`,
         method: "GET",
       }),
+      providesTags: ["singleUser"],
+    }),
+    // * delete single user
+    deleteSingleUser: builder.mutation({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["user"],
     }),
     // * update single user
     updateSingleUser: builder.mutation({
@@ -36,6 +47,7 @@ const userApi = api.injectEndpoints({
           "Content-Type": "application/json",
         },
       }),
+      invalidatesTags: ["singleUser"],
     }),
   }),
 });
@@ -45,4 +57,5 @@ export const {
   useGetSingleUserQuery,
   useUpdateSingleUserMutation,
   useCreateUserMutation,
+  useDeleteSingleUserMutation,
 } = userApi;

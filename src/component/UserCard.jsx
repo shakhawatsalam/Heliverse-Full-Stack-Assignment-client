@@ -6,24 +6,16 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
 import { Link } from "react-router-dom";
+import { useDeleteSingleUserMutation } from "../redux/user/userApi";
 
 const { Meta } = Card;
 const UserCard = ({ user }) => {
+  const [deleteSingleUser] = useDeleteSingleUserMutation();
   return (
     <Card
       style={{
         width: 300,
-      }}
-      // actions={[
-      //   <>
-      //     <SettingOutlined key='setting' />,
-      //     <Link>
-      //       <EditOutlined key='edit' />,
-      //     </Link>
-      //     <EllipsisOutlined key='ellipsis' />,
-      //   </>,
-      // ]}
-    >
+      }}>
       <Meta
         avatar={<Avatar src={user?.avatar} />}
         title={user?.first_name + " " + user?.last_name}
@@ -39,11 +31,14 @@ const UserCard = ({ user }) => {
       </div>
 
       <div className='w-full flex justify-around mt-11 cursor-pointer'>
-        <DeleteOutlined />
+        <DeleteOutlined
+          style={{ fontSize: "20px" }}
+          onClick={() => deleteSingleUser(user._id)}
+        />
         <Link to={`/update/${user._id}`}>
-          <EditOutlined key='edit' />
+          <EditOutlined key='edit' style={{ fontSize: "20px" }} />
         </Link>
-        <UsergroupAddOutlined />
+        <UsergroupAddOutlined style={{ fontSize: "20px" }} />
       </div>
     </Card>
   );
