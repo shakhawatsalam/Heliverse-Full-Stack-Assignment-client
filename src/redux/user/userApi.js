@@ -9,7 +9,7 @@ const userApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["singleUser"],
+      invalidatesTags: ["user", "singleUser"],
     }),
     // * Get All User
     getAllUser: builder.query({
