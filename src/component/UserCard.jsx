@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   EditOutlined,
   UsergroupAddOutlined,
@@ -7,10 +7,15 @@ import {
 import { Avatar, Card } from "antd";
 import { Link } from "react-router-dom";
 import { useDeleteSingleUserMutation } from "../redux/user/userApi";
+import useSelection from "antd/es/table/hooks/useSelection";
+import { useDispatch } from "react-redux";
+import { addTeamMember } from "../redux/user/userSlice";
 
 const { Meta } = Card;
 const UserCard = ({ user }) => {
   const [deleteSingleUser] = useDeleteSingleUserMutation();
+  const dispatch = useDispatch();
+
   return (
     <Card
       style={{
@@ -38,7 +43,12 @@ const UserCard = ({ user }) => {
         <Link to={`/update/${user._id}`}>
           <EditOutlined key='edit' style={{ fontSize: "20px" }} />
         </Link>
-        <UsergroupAddOutlined style={{ fontSize: "20px" }} />
+        <UsergroupAddOutlined
+          style={{ fontSize: "20px" }}
+          onClick={() => {
+            dispatch(addTeamMember(user));
+          }}
+        />
       </div>
     </Card>
   );

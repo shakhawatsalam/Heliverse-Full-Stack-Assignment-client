@@ -23,7 +23,7 @@ const NavBar = () => {
       key: "Home",
       icon: (
         <>
-          <Link to={`/`}>
+          <Link to={`/`} key='Home'>
             {/* <MailOutlined /> */}
             Home
           </Link>
@@ -32,10 +32,10 @@ const NavBar = () => {
     },
     {
       label: "",
-      key: "create",
+      key: "link",
       icon: (
         <>
-          <Link to={`/create`}>
+          <Link to={`/create`} key='link'>
             {/* <MailOutlined /> */}
             Create User
           </Link>
@@ -47,7 +47,11 @@ const NavBar = () => {
       key: "create",
       icon: (
         <>
-          <Button type='primary' className='bg-blue-500' onClick={showDrawer}>
+          <Button
+            type='primary'
+            className='bg-blue-500'
+            onClick={showDrawer}
+            key='helo'>
             Team
           </Button>
         </>
@@ -57,7 +61,6 @@ const NavBar = () => {
 
   const [current, setCurrent] = useState("mail");
   const onClick = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
   return (

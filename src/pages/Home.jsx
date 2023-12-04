@@ -7,12 +7,17 @@ import SearchAndFilterComponent from "../component/SearchAndFilterComponent";
 import Filter from "../component/Filter";
 import GenderFilter from "../component/GenderFilter";
 import AvailableFilter from "../component/AvailableFilter";
+import useSelection from "antd/es/table/hooks/useSelection";
+import { useSelector } from "react-redux";
+import { Button, message, Space } from "antd";
 
 const Home = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   //* arg
   const query = {};
 
   // * state declaration
+  const messagess = useSelector((state) => state.team.message);
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
@@ -21,6 +26,13 @@ const Home = () => {
   const [domain, setDomain] = useState("");
   const [gender, setGender] = useState("");
   const [available, setAvailable] = useState("All");
+  console.log(messagess);
+  if (messagess) {
+    messageApi.open({
+      type: "error",
+      content: messagess,
+    });
+  }
 
   query["limit"] = size;
   query["page"] = page;
@@ -52,6 +64,7 @@ const Home = () => {
 
   return (
     <>
+      {contextHolder}
       <div className='text-center mt-6 text-4xl'>User's Card</div>
       <div className=' flex justify-center gap-6 mt-6'>
         <SearchAndFilterComponent setSearchTerm={setSearchTerm} />
