@@ -8,8 +8,9 @@ import Filter from "../component/Filter";
 import GenderFilter from "../component/GenderFilter";
 import AvailableFilter from "../component/AvailableFilter";
 import useSelection from "antd/es/table/hooks/useSelection";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, message, Space } from "antd";
+import { updateMessage } from "../redux/user/userSlice";
 
 const Home = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -17,7 +18,6 @@ const Home = () => {
   const query = {};
 
   // * state declaration
-  const messagess = useSelector((state) => state.team.message);
   const [size, setSize] = useState(10);
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("");
@@ -26,14 +26,34 @@ const Home = () => {
   const [domain, setDomain] = useState("");
   const [gender, setGender] = useState("");
   const [available, setAvailable] = useState("All");
-  console.log(messagess);
-  if (messagess) {
+  const team = useSelector((state) => state.team.team);
+  const ErrorMessage = useSelector((state) => state.team.message);
+  const dispatch = useDispatch();
+  if (
+    ErrorMessage &&
+    ErrorMessage !== "The member is Already Exist" &&
+    ErrorMessage !== "Person Added Successfully"
+  ) {
     messageApi.open({
       type: "error",
-      content: messagess,
+      content: "This Person is Not Available",
     });
+    dispatch(updateMessage());
   }
-
+  if (ErrorMessage === "The member is Already Exist") {
+    messageApi.open({
+      type: "error",
+      content: "You cannot add a person from the same domain.",
+    });
+    dispatch(updateMessage());
+  }
+  if (ErrorMessage === "Person Added Successfully") {
+    messageApi.open({
+      type: "success",
+      content: "Person Added Successfully",
+    });
+    dispatch(updateMessage());
+  }
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
