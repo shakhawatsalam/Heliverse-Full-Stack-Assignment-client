@@ -62,7 +62,7 @@ const DrawerOpen = ({ onClose, open }) => {
               span: 16,
             }}>
             <Button type='primary' className='bg-blue-500' htmlType='submit'>
-              Submit
+              Create Team
             </Button>
           </Form.Item>
           <Form.Item

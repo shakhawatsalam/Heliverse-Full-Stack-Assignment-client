@@ -44,6 +44,18 @@ const NavBar = () => {
     },
     {
       label: "",
+      key: "allteam",
+      icon: (
+        <>
+          <Link to={`/teams`} key='allteam'>
+            {/* <MailOutlined /> */}
+            All Teams
+          </Link>
+        </>
+      ),
+    },
+    {
+      label: "",
       key: "create",
       icon: (
         <>
@@ -52,7 +64,7 @@ const NavBar = () => {
             className='bg-blue-500'
             onClick={showDrawer}
             key='helo'>
-            Team
+            Create Team
           </Button>
         </>
       ),

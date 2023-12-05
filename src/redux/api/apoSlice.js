@@ -6,6 +6,6 @@ export const api = createApi({
     // baseUrl: "https://heliverse-tan.vercel.app/api/",
     baseUrl: "http://localhost:5000/api/",
   }),
-  tagTypes: ["user", "singleUser"],
+  tagTypes: ["user", "singleUser", 'team'],
   endpoints: () => ({}),
 });

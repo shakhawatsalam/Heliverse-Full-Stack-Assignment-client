@@ -2,6 +2,14 @@ import { api } from "../api/apoSlice";
 
 const teamApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    // * get single team
+    getAllTeams: builder.query({
+      query: () => ({
+        url: `/teams`,
+        method: "GET",
+      }),
+      providesTags: ["team"],
+    }),
     // * Create team
     createTeam: builder.mutation({
       query: (data) => ({
@@ -9,7 +17,9 @@ const teamApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["team"],
     }),
+
     // * get single team
     getSingleTeam: builder.query({
       query: (id) => ({
@@ -20,4 +30,8 @@ const teamApi = api.injectEndpoints({
   }),
 });
 
-export const { useCreateTeamMutation, useGetSingleTeamQuery } = teamApi;
+export const {
+  useCreateTeamMutation,
+  useGetSingleTeamQuery,
+  useGetAllTeamsQuery,
+} = teamApi;

@@ -4,6 +4,7 @@ import App from "../App";
 import Home from "../pages/Home";
 import UpdateUserPage from "../pages/UpdateUserPage";
 import CreateUserPage from "../pages/CreateUserPage";
+import AllteamPage from "../pages/AllteamPage";
 
 // const routes = createBrowserRouter([
 //   {
@@ -39,6 +40,10 @@ const routes = createBrowserRouter([
   {
     path: "/create",
     element: <CreateUserPage />,
+  },
+  {
+    path: "/teams",
+    element: <AllteamPage />,
   },
 ]);
 
