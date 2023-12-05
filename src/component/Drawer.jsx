@@ -1,18 +1,31 @@
 import React, { useState } from "react";
 import { Drawer } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UserCard from "./UserCard";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useCreateTeamMutation } from "../redux/team/teamApi";
+import { updateTeam } from "../redux/user/userSlice";
+import { message } from "antd";
 const DrawerOpen = ({ onClose, open }) => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const [form] = Form.useForm();
   const teams = useSelector((state) => state.team.team);
-  const [createTeam] = useCreateTeamMutation();
-
+  const [createTeam, { isSuccess }] = useCreateTeamMutation();
+  const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log("Success:", values);
     const { teamName } = values;
-    createTeam({teamName, teams});
+    createTeam({ teamName, teams });
+
+    form.resetFields();
+    dispatch(updateTeam());
   };
+  if (isSuccess) {
+    messageApi.open({
+      type: "success",
+      content: "Team Created Successfully",
+    });
+  }
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -24,8 +37,10 @@ const DrawerOpen = ({ onClose, open }) => {
         placement='right'
         onClose={onClose}
         open={open}>
+        {contextHolder}
         <Form
           name='basic'
+          form={form}
           labelCol={{
             span: 8,
           }}

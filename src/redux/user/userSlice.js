@@ -32,9 +32,13 @@ const userSlice = createSlice({
     updateMessage: (state) => {
       state.message = "";
     },
+    updateTeam: (state) => {
+      state.message = "";
+      state.team = [];
+    },
   },
 });
 
-export const { addTeamMember, updateMessage } = userSlice.actions;
+export const { addTeamMember, updateMessage, updateTeam } = userSlice.actions;
 
 export default userSlice.reducer;
